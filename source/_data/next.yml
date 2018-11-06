@@ -162,8 +162,8 @@ site_state: true
 # Value before `||` delimeter is the target permalink.
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
 #social:
-  #GitHub: https://github.com/yourname || github
-  #E-Mail: mailto:yourname@gmail.com || envelope
+  #GitHub: https://github.com/calvinchoy || github
+  #E-Mail: mailto:info@karubin.com|| envelope
   #Weibo: https://weibo.com/yourname || weibo
   #Google: https://plus.google.com/yourname || google
   #Twitter: https://twitter.com/yourname || twitter
@@ -187,7 +187,7 @@ social_icons:
 # Usage: `permalink || title`
 # Value before `||` delimeter is the target permalink.
 # Value after `||` delimeter is the title and aria-label name.
-#github_banner: https://github.com/yourname || Follow me on GitHub
+#github_banner: https://github.com/calvinchoy || Follow me on GitHub
 
 # Blog rolls
 links_icon: link
@@ -580,7 +580,7 @@ needmoreshare2:
 #google_site_verification:
 
 # Google Analytics
-#google_analytics:
+google_analytics: UA-56927869-2
 
 # Bing Webmaster tools verification setting
 # See: https://www.bing.com/webmaster/
