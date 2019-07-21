@@ -53,11 +53,15 @@ There are a couple of ways to instantiate objects:
 
 1. Use the `new` operator with a constructor (any function can be a constructor)
 
-        var object = new Object();
+```javascript
+var object = new Object();
+```
 
 2. Use the literal notation
 
-        var object = {prop1:value,prop2:value}
+```javascript
+var object = {prop1:value,prop2:value}
+```
 
 ## Detecting object properties ##
 Use the `in` operator to detect existance of properties in the object. The `in` operator checks for both own properties and prototype properties. If you want to check for own properties only use the `hasOwnProperty()` method.
@@ -70,14 +74,16 @@ There are two common types of properties: data and accesor. Two property attribu
 
 By default these common properties are set to `true`. The properties can be set using the `Object.defineProperty(object, proplabel, config)` method. For example:
 
-        var someObject = {
-            label: "value""
-        }
+```javascript
+var someObject = {
+    label: "value""
+}
 
-        Object.defineProperty(someObject, "value", {
-            enumerable: false,
-            configurable: false
-        });
+Object.defineProperty(someObject, "value", {
+    enumerable: false,
+    configurable: false
+});
+```
 
 ### Data properties
 
@@ -86,70 +92,73 @@ By default these common properties are set to `true`. The properties can be set 
 
 Example:
 
-        var person1 = {};
+```javascript
+var person1 = {};
 
-        Object.defineProperty(person1, "name", {
-            value: "Nicholas",
-            enumerable: true,
-            configurable: true,
-            writable: true
-        });
+Object.defineProperty(person1, "name", {
+    value: "Nicholas",
+    enumerable: true,
+    configurable: true,
+    writable: true
+});
+```
 
 ### Accessor properties
 Because there is no value stored for accessor properties, there is no need for `value` or `writable`. Instead, accessors have `get` and `set`, which contain the getter and setter functions, respectively.
 
 Example:
+```javascript
+var person1 = {
+    //_property act as private property
+        _name: "Nicholas"
+};
 
-        var person1 = {
-            //_property act as private property
-             _name: "Nicholas"
-        };
+//create new property and setting common attributes
+//and accesor attributes
+Object.defineProperty(person1, "name", {
+    get: function() {
+        console.log("Reading name");
+        return this._name;
+    },
 
-        //create new property and setting common attributes
-        //and accesor attributes
-        Object.defineProperty(person1, "name", {
-            get: function() {
-                console.log("Reading name");
-                return this._name;
-            },
+    set: function(value) {
+        console.log("Setting name to %s", value);
+        this._name = value;
+    },
 
-            set: function(value) {
-                console.log("Setting name to %s", value);
-                this._name = value;
-            },
-
-            enumerable: true,
-            configurable: true
-        });
+    enumerable: true,
+    configurable: true
+});
+```
 
 ### Defining multiple properties (data and accessor)
 It’s also possible to define multiple properties on an object simultaneously if you use `Object.defineProperties()` instead of `Object.defineProperty()`. This method accepts two arguments: the object to work on and an object containing all of the property information. The keys of that second argument are property names, and the values are descriptor objects defining the attributes for those properties.
 
 Example:
+```javascript
+var someObject = {};
 
-        var someObject = {};
+Object.defineProperties(someObject,{
 
-        Object.defineProperties(someObject,{
+    //define a data property
+    _name: {
+        value: "Calvin",
+        enumerable: true,
+        configurable: true,
+        writable: true
+    },
 
-            //define a data property
-            _name: {
-                value: "Calvin",
-                enumerable: true,
-                configurable: true,
-                writable: true
-            },
+    //define accessor property
+    name: {
+        get: function(){
+            return this._name;
+        },
+        set: function(value){
+            this._name = value;
+        }
+});
 
-            //define accessor property
-            name: {
-                get: function(){
-                    return this._name;
-                },
-                set: function(value){
-                    this._name = value;
-                }
-        });
-
-
+```
 ## Preventing Object modification
 Object, just like properties, have internal attributes that govern their behavior. There are three different ways to prevent object modification:
 
@@ -165,16 +174,19 @@ Finally, we can create a nonextensible object by freezing it. A frozen object is
 # Functions
 There are two literal forms of functions, function declaration and function expression. Function declaration begins with the `function` keyword and includes the name of the function:
 
-        function functionname(param1, param2){
-            //code here...
-        }
+```javascript
+function functionname(param1, param2){
+    //code here...
+}
+```
 
 Function expression on the other hand doesn't require a name after function and uses variable declaration notation:
 
-        var functionname = function(param1, param2){
-            //code here...
-        }
-
+```javascript
+var functionname = function(param1, param2){
+    //code here...
+}
+```
 __Hoisting__
 
 Function declarations are _hoisted_ to the top of the context. That means you can actually define a function after it is used in code without generating an error.
@@ -187,27 +199,26 @@ A constructor is a function that is used with `new` to create your own objects b
 Constructors allow you to innitialize an isntance of a type in a consistent way. Use the `Object.defineProperty()` inside a constructor to help initializing the instance.
 
 For example:
+```javascript
+function Person(name) {
 
-        function Person(name) {
+    Object.defineProperty(this,
+        "name", {
+            get: function() {
+                return name;
+            },
+            set: function(newName) {
+                name = newName;
+            },
+            enumerable: true,
+            configurable: true
+        });
 
-            Object.defineProperty(this,
-                "name", {
-                    get: function() {
-                        return name;
-                    },
-                    set: function(newName) {
-                        name = newName;
-                    },
-                    enumerable: true,
-                    configurable: true
-                });
-
-            this.sayName = function() {
-                console.log(this.name);
-            };
-        }
-
-
+    this.sayName = function() {
+        console.log(this.name);
+    };
+}
+```
 ## Prototypes
 Almost every function has a `prototype` property that is used during creation of new instances. The properties of the prototype can be accessed by all instances. By default all object share the properties of `Object.prototype`.
 
@@ -223,16 +234,17 @@ Remember that `delete` property only works on own properties, you cannot delet a
 The prototype object is ideal for defining methods that are shared between all instances of a custom object. This could reduce duplicate code in instances. Use `this` to refer the current instance.
 
 Example:
+```javascript
+//create constructor
+function Person(name){
+    this.name = name;
+}
 
-        //create constructor
-        function Person(name){
-            this.name = name;
-        }
-
-        //define prototype method for Person constructor
-        Person.prototype.sayName = function(){
-            console.log(this.name);
-        };
+//define prototype method for Person constructor
+Person.prototype.sayName = function(){
+    console.log(this.name);
+};
+```
 
 Changes to the `prototype` are immediately available on any instance referencing it.
 
@@ -253,23 +265,23 @@ Do not ever modify the `Object.prototype`.This will affect __all__ objects.
  By default object literals have `Object.prototype`set as their prototype implicitly. You can override this behaviour by explicitly specify the prototype with the `Object.create()` method.
 
 Example:
+```javascript
+var person1 = {
+    name: "Nicholas",
+    sayName: function() {
+        console.log(this.name);
+    }
+};
 
-        var person1 = {
-            name: "Nicholas",
-            sayName: function() {
-                console.log(this.name);
-            }
-        };
-
-        var person2 = Object.create(person1, {
-            name: {
-                configurable: true,
-                enumerable: true,
-                value: "Greg",
-                writable: true
-            }
-        });
-
+var person2 = Object.create(person1, {
+    name: {
+        configurable: true,
+        enumerable: true,
+        value: "Greg",
+        writable: true
+    }
+});
+```
 
 ## Constructor Inheritance
 When a constructor is created, it becomes a subtype of `Object.prototype`. The constructor value is automatically set to the name of your constructor (function). As with Object inheritance discussed previously, this happens by using the `Object.create()` method.
@@ -279,22 +291,24 @@ To call (steal) the supertype constructor from another constructor use the `call
 
 Example:
 
-        function ParentConstructor(par1, par2){
-            //some subconstructor code
-        }
+```javascript
+function ParentConstructor(par1, par2){
+    //some subconstructor code
+}
 
-        function ChildConstructor(par){
-            //steal another constructor
-            ParentConstructor.call(this, par, par)
-        }
-
+function ChildConstructor(par){
+    //steal another constructor
+    ParentConstructor.call(this, par, par)
+}
+```
 In the same manner we can call supertypes methods in subconstructor methods.
 
 Example:
-
-    function someChildMethod(){
-        //make call to another constructor
-        ParentConstructor.prototype.someParentMethod.call(this);
-    }
+```javascript
+function someChildMethod(){
+    //make call to another constructor
+    ParentConstructor.prototype.someParentMethod.call(this);
+}
+```
 
 <sub>This is an excerpt from the book: The Principles of Object - Oriented JavaScript</sub>

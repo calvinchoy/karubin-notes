@@ -12,9 +12,7 @@ date: 2018-11-04 15:41:09
 ---
 
 
-Scrum is a popular framework for implementing agile. This article is still work in progress and contains notes I collected from various resources about the Scrum framework.
-
-Last updated: 04/11/2018
+Scrum is a popular framework for implementing agile. This article describes some core concepts using notes I collected from various resources about the Scrum framework. Specific topics and techniques will be discussed in seperate articles.
 
 <!-- more -->
 
@@ -105,8 +103,8 @@ User stories for a part can be compared with requirements in sequential planning
 * Small
 
 ### The spring backlog
-The product backlog is the cumulative list of desired deliverables for the product. This includes features, bug fixes, documentation changes, and anything else that might be meaningful and valuable to produce. Includes:
-* Stories (deliverables)
+The sprint backlog is the cumulative list of desired deliverables for the product for the next sprint. This includes features, bug fixes, documentation changes, and anything else that might be meaningful and valuable to produce. Includes:
+* Selection of stories (deliverables)
 	* Tasks
 
 ### Burncharts
